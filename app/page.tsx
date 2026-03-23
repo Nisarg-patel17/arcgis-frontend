@@ -1,0 +1,28 @@
+"use client"
+
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { defaultProtectedRoute, defaultPublicRoute } from "@/lib/route-config"
+
+export default function HomePage() {
+  const router = useRouter()
+
+  useEffect(() => {
+    // Check if user is logged in
+    const userData = localStorage.getItem("user")
+    if (userData) {
+      window.location.href = defaultProtectedRoute
+    } else {
+      window.location.href = defaultPublicRoute
+    }
+  }, [router])
+
+  return (
+    <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Redirecting...</p>
+      </div>
+    </div>
+  )
+}
